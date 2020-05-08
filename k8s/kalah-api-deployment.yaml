@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kalah-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: kalah-api
+  template:
+    metadata:
+      labels:
+        component: kalah-api
+    spec:
+      containers:
+        - name: kalah-api
+          image: jamespatten1/kalah-api
+          

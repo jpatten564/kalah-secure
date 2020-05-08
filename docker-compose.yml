@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+
+  keycloak:
+     container_name: keycloak
+     image: jboss/keycloak:4.0.0.Final
+     command:
+      - "-b"
+      - "0.0.0.0"
+      - "-Dkeycloak.migration.action=import"
+      - "-Dkeycloak.migration.provider=singleFile"
+      - "-Dkeycloak.migration.file=/config/all.json"
+      - "-Dkeycloak.migration.strategy=IGNORE_EXISTING"
+     volumes:
+       - ./keycloak/config:/config/
+     environment:
+       - KEYCLOAK_USER=admin
+       - KEYCLOAK_PASSWORD=password
+       - DB_VENDOR=postgres
+       - DB_USER=admin
+       - DB_PASSWORD=password
+       - DB_ADDR=keycloak-db
+       - DB_PORT=5432
+       - DB_DATABASE=keycloakdb
+     ports:
+       - "8080:8080"
+     depends_on:
+       - keycloak-db
+
+  keycloak-db:
+    container_name: keycloak-db
+    image: postgres:10
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: keycloakdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  kalah-api:
+    container_name: kalah-api
+    build:
+      context: ./kalah-api
+    ports:
+      - "8081:8081"
+    links:
+      - "keycloak:keycloak"
+
+  kalah-web:
+    container_name: kalah-web
+    stdin_open: true
+    build:
+        context: ./kalah-web/
+    volumes: 
+        - ./kalah-web/web:/usr/share/nginx/html
+    ports:
+        - "80:80"
+    links:
+      - "kalah-api:kalah-api"
+
+volumes:
+  pgdata:

@@ -1,0 +1,13 @@
+keycloak:
+  auth-server-url: http://localhost:8080/auth/
+  resource: kalah-app
+  realm: KalahRealm
+  public-client: true
+  principal-attribute: preferred_username
+server:
+  port: 8081
+  use-forward-headers: true
+
+logging:
+  level:
+    root: INFO

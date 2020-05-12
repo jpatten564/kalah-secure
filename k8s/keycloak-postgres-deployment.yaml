@@ -15,7 +15,7 @@ spec:
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
-            claimName: keycloak-postgres-persistent-volume-claim
+            claimName: keycloak-postgres-pvc
       containers:
         - name: postgres
           image: postgres

@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: keycloak
+  name: keycloak-deployment
+  labels:
+    component: keycloak
 spec:
   replicas: 1
   selector:
@@ -13,6 +15,21 @@ spec:
         component: keycloak
     spec:
       containers:
-        - name: keycloak
-          image: jamespatten1/keycloak
-          
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:10.0.1
+        env:
+        - name: KEYCLOAK_USER
+          value: "admin"
+        - name: KEYCLOAK_PASSWORD
+          value: "admin"
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: https
+          containerPort: 8443
+        readinessProbe:
+          httpGet:
+            path: /auth/realms/master
+            port: 8080

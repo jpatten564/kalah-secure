@@ -9,6 +9,6 @@ server {
 
   location /api/ {
     rewrite /api/(.*) /$1 break;
-    proxy_pass http://kalah-api:8081/;
+    proxy_pass http://${API_HOST}:${API_PORT}/;
   }
 }

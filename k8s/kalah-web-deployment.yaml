@@ -6,12 +6,21 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      component: kalah-web
+      component: web
   template:
     metadata:
       labels:
-        component: kalah-web
+        component: web
     spec:
       containers:
         - name: kalah-web
           image: jamespatten1/kalah-web
+          env:
+            - name: API_HOST
+              value: kalah-api-cluster-ip-service
+            - name: API_PORT
+              value: '8081'
+            - name: KEYCLOAK_HOST
+              value: keycloak-cluster-ip-service
+            - name: KEYCLOAK_PORT
+              value: '8080'

@@ -1,5 +1,5 @@
 keycloak:
-  auth-server-url: http://localhost:8080/auth/
+  auth-server-url: http://${KEYCLOAK_HOST:keycloak}:${KEYCLOAK_PORT:8080}/auth/
   resource: kalah-app
   realm: KalahRealm
   public-client: true

@@ -1,16 +1,26 @@
-apiVersion: skaffold/v1beta2
+apiVersion: skaffold/v2beta3
 kind: Config
+metadata:
+  name: kalah
 build:
   local:
     push: false
   artifacts:
-    - image: jamespatten1/kalah-web
-      context: kalah-web
-      sync:
-        '**/*.js': .
-        '**/*.css': .
-        '**/*.html': .
+  - image: jamespatten1/kalah-api
+    context: kalah-api
+  - image: jamespatten1/kalah-web
+    context: kalah-web
 deploy:
   kubectl:
     manifests:
-      - k8s/kalah-web-deployment.yaml
+    #- k8s/kalah-api-cluster-ip-service.yaml
+    #- k8s/kalah-api-deployment.yaml
+    #- k8s/kalah-web-cluster-ip-service.yaml
+    #- k8s/kalah-web-deployment.yaml
+    #- k8s/kalah-web-ingress-service.yaml
+    - k8s/keycloak-cluster-ip-service.yaml
+    - k8s/keycloak-deployment.yaml
+    - k8s/keycloak-ingress-service.yaml
+    - k8s/keycloak-postgres-cluster-ip-service.yaml
+    - k8s/keycloak-postgres-deployment.yaml
+    - k8s/keycloak-postgres-pvc.yaml

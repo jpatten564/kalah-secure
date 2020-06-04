@@ -1,0 +1,19 @@
+apiVersion: skaffold/v1beta2
+kind: Config
+build:
+  local:
+    push: false
+  artifacts:
+    - image: jamespatten1/kalah-web
+      context: kalah-web
+      sync:
+        '**/*.js': .
+        '**/*.css': .
+        '**/*.html': .
+    - image: jamespatten1/kalah-api
+      context: kalah-api
+deploy:
+  kubectl:
+    manifests:
+      - k8s/kalah-web-deployment.yaml
+      - k8s/kalah-api-deployment.yaml

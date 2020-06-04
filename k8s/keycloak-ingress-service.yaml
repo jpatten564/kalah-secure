@@ -4,13 +4,13 @@ metadata:
   name: keycloak-ingress-service
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # nginx.ingress.kubernetes.io/rewrite-target: / 
 spec:
   rules:
     - host: keycloak
       http:
         paths:   
-          - path: /auth/?(.*)
+          - path: /
             backend:
-              serviceName: keycloak-cluster-ip-service
-              servicePort: 8080
+              serviceName: keycloak
+              servicePort: 80

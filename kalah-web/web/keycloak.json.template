@@ -1,6 +1,6 @@
 {
   "realm": "KalahRealm",
-  "auth-server-url": "http://${KEYCLOAK_HOST}:${KEYCLOAK_PORT}/auth",
+  "auth-server-url": "http://keycloak/auth",
   "ssl-required": "external",
   "resource": "kalah-web",
   "public-client": true,

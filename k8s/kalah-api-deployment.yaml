@@ -17,7 +17,7 @@ spec:
           image: jamespatten1/kalah-api
           env:
             - name: KEYCLOAK_HOST
-              value: keycloak-cluster-ip-service
+              value: keycloak
             - name: KEYCLOAK_PORT
-              value: '8080'
+              value: '80'
           

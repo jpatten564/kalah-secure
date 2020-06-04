@@ -12,5 +12,5 @@ spec:
         paths:   
           - path: /
             backend:
-              serviceName: keycloak-cluster-ip-service
-              servicePort: 8080
+              serviceName: keycloak
+              servicePort: 80

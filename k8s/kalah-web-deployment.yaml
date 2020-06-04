@@ -15,6 +15,7 @@ spec:
       containers:
         - name: kalah-web
           image: jamespatten1/kalah-web
+          imagePullPolicy: IfNotPresent
           env:
             - name: API_HOST
               value: kalah-api-cluster-ip-service
